@@ -6,6 +6,7 @@ set -euo pipefail
 GH_REPO="https://github.com/allure-framework/allure2"
 TOOL_NAME="allure"
 TOOL_TEST="allure --version"
+ASDF_DOWNLOAD_PATH="/tmp/${TOOL_NAME}"
 
 fail() {
   echo -e "asdf-$TOOL_NAME: $*"
@@ -31,18 +32,17 @@ list_github_tags() {
 }
 
 list_all_versions() {
-  # TODO: Adapt this. By default we simply list the tag names from GitHub releases.
   # Change this function if allure has other means of determining installable versions.
   list_github_tags
 }
 
 download_release() {
-  local version filename url
+  local version filename url archive_name
   version="$1"
   filename="$2"
+  archive_name="$3"
 
-  # TODO: Adapt the release URL convention for allure
-  url="$GH_REPO/archive/v${version}.tar.gz"
+  url="$GH_REPO/releases/download/${version}/${archive_name}"
 
   echo "* Downloading $TOOL_NAME release $version..."
   curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
@@ -59,16 +59,15 @@ install_version() {
 
   (
     mkdir -p "$install_path"
-    cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
+    cp -r "$ASDF_DOWNLOAD_PATH/${TOOL_NAME}-${version}"/* "$install_path"
 
-    # TODO: Asert allure executable exists.
     local tool_cmd
     tool_cmd="$(echo "$TOOL_TEST" | cut -d' ' -f1)"
     test -x "$install_path/bin/$tool_cmd" || fail "Expected $install_path/bin/$tool_cmd to be executable."
 
     echo "$TOOL_NAME $version installation was successful!"
   ) || (
-    rm -rf "$install_path"
+    # rm -rf "$install_path"
     fail "An error ocurred while installing $TOOL_NAME $version."
   )
 }
