@@ -1,6 +1,6 @@
 <div align="center">
 
-# asdf-allure ![Build](https://github.com/comdotlinux/asdf-allure/workflows/Build/badge.svg) ![Lint](https://github.com/comdotlinux/asdf-allure/workflows/Lint/badge.svg)
+# asdf-allure [![Build](https://github.com/comdotlinux/asdf-allure2/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/comdotlinux/asdf-allure2/actions/workflows/build.yml) [![Lint](https://github.com/comdotlinux/asdf-allure2/actions/workflows/lint.yml/badge.svg?branch=master)](https://github.com/comdotlinux/asdf-allure2/actions/workflows/lint.yml)
 
 [allure](https://docs.qameta.io/allure) plugin for the [asdf version manager](https://asdf-vm.com).
 
@@ -17,7 +17,7 @@
 # Dependencies
 
 - `bash`, `curl`, `tar`: generic POSIX utilities.
-- `SOME_ENV_VAR`: set this environment variable in your shell config to load the correct version of tool x.
+- `java`: see [asdf-java](https://github.com/halcyon/asdf-java) for installtion instructions
 
 # Install
 
